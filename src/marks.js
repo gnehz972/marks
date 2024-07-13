@@ -205,6 +205,55 @@ export class Underline extends Highlight {
 }
 
 
+export class Waveline extends Highlight {
+    constructor(range, className, data, attributes) {
+        super(range, className, data,  attributes);
+    }
+
+    render() {
+        // Empty element
+        while (this.element.firstChild) {
+            this.element.removeChild(this.element.firstChild);
+        }
+
+        var docFrag = this.element.ownerDocument.createDocumentFragment();
+        var filtered = this.filteredRanges();
+        var offset = this.element.getBoundingClientRect();
+        var container = this.container.getBoundingClientRect();
+
+        for (var i = 0, len = filtered.length; i < len; i++) {
+            var r = filtered[i];
+
+            var wavePath = _svg2.default.createElement('path');
+            var startX = r.left - offset.left + container.left;
+            var startY = r.top - offset.top + container.top + r.height - 1;
+            var endX = startX + r.width;
+    
+            // Wave properties
+            var amplitude = 2;
+            var frequency = 10; 
+            var pathData = `M ${startX} ${startY}`;
+            for (let x = startX; x <= endX; x += 1) {
+                let y = startY + amplitude * Math.sin((x-startX) * 2 * Math.PI / frequency);
+                pathData += ` L ${x} ${y}`;
+            }
+    
+            wavePath.setAttribute('d', pathData);
+            wavePath.setAttribute('fill', 'none');
+            wavePath.setAttribute('stroke', 'black');
+            wavePath.setAttribute('stroke-width', 1);
+            wavePath.setAttribute('stroke-linecap', 'round');
+    
+            docFrag.appendChild(wavePath);
+        }
+
+        this.element.appendChild(docFrag);
+
+    }
+}
+
+
+
 function coords(el, container) {
     var offset = container.getBoundingClientRect();
     var rect = el.getBoundingClientRect();
