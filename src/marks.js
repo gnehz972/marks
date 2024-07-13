@@ -224,7 +224,7 @@ export class Waveline extends Highlight {
         for (var i = 0, len = filtered.length; i < len; i++) {
             var r = filtered[i];
 
-            var wavePath = _svg2.default.createElement('path');
+            var wavePath = svg.default.createElement('path');
             var startX = r.left - offset.left + container.left;
             var startY = r.top - offset.top + container.top + r.height - 1;
             var endX = startX + r.width;
