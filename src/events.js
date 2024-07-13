@@ -72,17 +72,10 @@ export function proxyMouse(target, tracked) {
  * @returns {MouseEvent}
  */
 export function clone(e) {
-    var opts = Object.assign({}, e, {bubbles: false});
     try {
-        return new MouseEvent(e.type, opts);
+        return new e.constructor(e.type, e);
     } catch(err) { // compat: webkit
-        var copy = document.createEvent('MouseEvents');
-        copy.initMouseEvent(e.type, false, opts.cancelable, opts.view,
-                            opts.detail, opts.screenX, opts.screenY,
-                            opts.clientX, opts.clientY, opts.ctrlKey,
-                            opts.altKey, opts.shiftKey, opts.metaKey,
-                            opts.button, opts.relatedTarget);
-        return copy;
+        return e;
     }
 }
 
