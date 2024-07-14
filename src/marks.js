@@ -190,9 +190,9 @@ export class Underline extends Highlight {
             line.setAttribute('y1', r.top - offset.top + container.top + r.height - 1);
             line.setAttribute('y2', r.top - offset.top + container.top + r.height - 1);
 
-            line.setAttribute('stroke-width', 1);
-            line.setAttribute('stroke', 'black'); //TODO: match text color?
-            line.setAttribute('stroke-linecap', 'square');
+            line.setAttribute('stroke-width',this.attributes['stroke-width'] || 1);
+            line.setAttribute('stroke',this.attributes['stroke'] || 'black'); //TODO: match text color?
+            line.setAttribute('stroke-linecap',this.attributes['stroke-linecap'] || 'square');
 
             docFrag.appendChild(rect);
 
@@ -239,10 +239,10 @@ export class Waveline extends Highlight {
             }
     
             wavePath.setAttribute('d', pathData);
-            wavePath.setAttribute('fill', 'none');
-            wavePath.setAttribute('stroke', 'black');
-            wavePath.setAttribute('stroke-width', 1);
-            wavePath.setAttribute('stroke-linecap', 'round');
+            wavePath.setAttribute('fill',this.attributes['fill'] || 'none');
+            wavePath.setAttribute('stroke',this.attributes['stroke'] || 'black');
+            wavePath.setAttribute('stroke-width', this.attributes['stroke-width'] || 1);
+            wavePath.setAttribute('stroke-linecap',this.attributes['stroke-linecap'] || 'round');
     
             docFrag.appendChild(wavePath);
         }
