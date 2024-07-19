@@ -223,6 +223,12 @@ export class Waveline extends Highlight {
 
         for (var i = 0, len = filtered.length; i < len; i++) {
             var r = filtered[i];
+            var rect = svg.createElement('rect');
+            rect.setAttribute('x', r.left - offset.left + container.left);
+            rect.setAttribute('y', r.top - offset.top + container.top);
+            rect.setAttribute('height', r.height);
+            rect.setAttribute('width', r.width);
+            rect.setAttribute('fill', 'none');
 
             var wavePath = svg.createElement('path');
             var startX = r.left - offset.left + container.left;
@@ -243,7 +249,8 @@ export class Waveline extends Highlight {
             wavePath.setAttribute('stroke',this.attributes['stroke'] || 'black');
             wavePath.setAttribute('stroke-width', this.attributes['stroke-width'] || 1);
             wavePath.setAttribute('stroke-linecap',this.attributes['stroke-linecap'] || 'round');
-    
+
+            docFrag.appendChild(rect);
             docFrag.appendChild(wavePath);
         }
 
