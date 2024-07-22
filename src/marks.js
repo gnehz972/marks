@@ -182,6 +182,7 @@ export class Underline extends Highlight {
             rect.setAttribute('height', r.height);
             rect.setAttribute('width', r.width);
             rect.setAttribute('fill', 'none');
+            rect.setAttribute('stroke', 'transparent');
 
 
             var line = svg.createElement('line');
@@ -229,21 +230,22 @@ export class Waveline extends Highlight {
             rect.setAttribute('height', r.height);
             rect.setAttribute('width', r.width);
             rect.setAttribute('fill', 'none');
+            rect.setAttribute('stroke', 'transparent');
 
             var wavePath = svg.createElement('path');
             var startX = r.left - offset.left + container.left;
             var startY = r.top - offset.top + container.top + r.height - 1;
             var endX = startX + r.width;
-    
+
             // Wave properties
             var amplitude = 2;
-            var frequency = 10; 
+            var frequency = 10;
             var pathData = `M ${startX} ${startY}`;
             for (let x = startX; x <= endX; x += 1) {
                 let y = startY + amplitude * Math.sin((x-startX) * 2 * Math.PI / frequency);
                 pathData += ` L ${x} ${y}`;
             }
-    
+
             wavePath.setAttribute('d', pathData);
             wavePath.setAttribute('fill',this.attributes['fill'] || 'none');
             wavePath.setAttribute('stroke',this.attributes['stroke'] || 'black');
